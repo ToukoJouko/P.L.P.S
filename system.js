@@ -38,7 +38,8 @@ class Particle {
       this.x > canvas.width ||
       this.x < 0 ||
       this.y > canvas.height ||
-      this.y < 0
+      this.y < 0 ||
+      this.velocityY === 0
     );
   }
 }
@@ -65,12 +66,13 @@ const draw = () => {
 };
 
 const pearRain = () => {
+  console.log(particles.length);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   let pearParticle = new Particle(
     Math.random() * canvas.width,
-    25,
     0,
-    Math.ceil(Math.random() * (10 + 5) - 5),
+    0,
+    Math.ceil(Math.random() * (10 + 1) - 1),
     pearImage
   );
 
