@@ -45,9 +45,13 @@ class Particle {
   }
 }
 
-let particleList = [];
-//let lagerParticleList = [];
+let lagerParticleList = [];
+let pearParticleList = [];
+let particleList = [pearParticleList, lagerParticleList];
 
+const randomBetween = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
 /*
 const draw = () => {
   //console.log(particles.length);
@@ -76,17 +80,17 @@ const pearRain = () => {
     Math.random() * canvas.width,
     0,
     0,
-    Math.ceil(Math.random() * (10 + 1) - 1),
-    Math.floor(Math.random() * (150 - 100 + 1) - 100),
-    Math.floor(Math.random() * (200 - 100 + 1) - 100),
+    randomBetween(1, 10),
+    randomBetween(50, 100),
+    randomBetween(20, 80),
     pearImage
   );
 
-  particleList.push(pearParticle);
-  for (let i = particleList.length - 1; i >= 0; i--) {
-    particleList[i].move();
-    if (particleList[i].deleteParticle()) {
-      particleList.splice(i, 1);
+  particleList[0].push(pearParticle);
+  for (let i = particleList[0].length - 1; i >= 0; i--) {
+    particleList[0][i].move();
+    if (particleList[0][i].deleteParticle()) {
+      particleList[0].splice(i, 1);
     }
   }
 
@@ -99,17 +103,17 @@ const lagerRain = () => {
     Math.random() * canvas.width,
     0,
     0,
-    Math.ceil(Math.random() * (10 + 1) - 1),
-    Math.floor(Math.random() * (50 - 40) - 40),
-    Math.floor(Math.random() * (100 - 50) - 50),
+    randomBetween(1, 10),
+    randomBetween(20, 30),
+    randomBetween(10, 50),
     lagerImage
   );
 
-  particleList.push(lagerParticle);
-  for (let i = particleList.length - 1; i >= 0; i--) {
-    particleList[i].move();
-    if (particleList[i].deleteParticle()) {
-      particleList.splice(i, 1);
+  particleList[1].push(lagerParticle);
+  for (let i = particleList[1].length - 1; i >= 0; i--) {
+    particleList[1][i].move();
+    if (particleList[1][i].deleteParticle()) {
+      particleList[1].splice(i, 1);
     }
   }
 
@@ -118,7 +122,7 @@ const lagerRain = () => {
 
 const stopAnimation = (animationType) => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particleList = [];
+  particleList = [[], []];
   window.cancelAnimationFrame(animationType);
 };
 
